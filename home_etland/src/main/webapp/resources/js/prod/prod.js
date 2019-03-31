@@ -37,10 +37,9 @@ prod =(()=>{
 		let del=()=>{
 			
 		};
-		
 		let carousel =()=>{
 			$(r_cnt).html(compo.cust_carousel());
-			$(r_cnt).after(compo.prod_post());
+			$('#myCarousel').after(compo.prod_post());
 		};
 		
 		return {init:init}

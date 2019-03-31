@@ -70,9 +70,9 @@ public class CustController {
 	
 	@PutMapping("/customers/{userid}")
 	public Map<String,Object> update(
+			@PathVariable String userid,
 			@RequestBody Customer param) {
 		logger.info("----------2.update진입------------");
-		
 		IConsumer c =  (Object o) -> custMap.updateCustomer(param);
 		c.accept(param);
 		map.clear();

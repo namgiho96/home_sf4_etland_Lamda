@@ -227,7 +227,7 @@ compo = {
             +'<h1>회원수정</h1>'
             +'<hr>'
             +'<label for="email"><b>회원정보입력</b></label> </br> </br>'
-            +'<input type="text" name="cid" required> '
+            +'<input type="text" placeholder="" name="cid" required> '
             +'<label for="psw"><b>아이디</b></label> </br> </br>'
             +'<input type="text" name="cname" required>'
             +'<label for="psw-repeat"><b>이름</b></label> </br> </br>'
@@ -253,7 +253,17 @@ compo = {
 	
 	cust_delete :()=>{
 			
-		return 
+		return ' <div class="container">'
+		+'    <h1>회원탈퇴</h1>'
+		+'    <label for="customerID"><b>ID</b></label>'
+		+'    <input type="text" placeholder="customerID" name="customerID" id="customerID" required>'
+		+'    <label for="password"><b>Password</b></label>'
+		+'    <input type="password" placeholder="password" name="password" required>   '
+		+'    <div class="clearfix">'
+		+'    <button type="button" class="cancelbtn">취소</button>'
+		+'    <button type="submit" id="delbtn">탈퇴</button>'
+		+'    </div>'
+		+'  </div>'
 			
 		},
 	cust_carousel :()=>{

@@ -84,8 +84,6 @@ auth = (()=>{
               let data = {
                         customerID:$('form input[name=uname]').val(),
                         password:$('form input[name=psw]').val()};
-              alert('회원아이디'+data.customerID);
-              alert('회원아이디'+data.password);
                $.ajax({
                     url : _+'/customers/'+data.customerID,
                     type : 'POST',
@@ -94,7 +92,6 @@ auth = (()=>{
                     contentType : 'application/json',
                     success : d =>{
                     	if (d.customerID!=='') {
-                    		alert('아이디 : '+d.customerID);
                     		$(r_cnt).empty();
                     		 $(compo.cust_mypage())
                              .appendTo(r_cnt);
@@ -159,70 +156,8 @@ auth = (()=>{
              }
     	 });
      };
-     let update =()=>{
-    	 let data = {
-    			 customerID : $('form input[name=cid]').val(),
-    			 customerName : $('form input[name=cname]').val(),
-    			 password : $('form input[name=cpass]').val(),
-    			 ssn : $('form input[name=cssn]').val(),
-    			 phone : $('form input[name=cphone]').val(),
-    			 city : $('form input[name=ccity]').val(),
-    			 address : $('form input[name=cadr]').val(),
-    			 postalCode : $('form input[name=cptc]').val()
-    	 }; 
-    	 $.ajax({
-    		 url : _+'/customers/u/',
-    		 type : 'PUT',
-    		 dataType : 'json',
-    		 data : JSON.stringify(data),
-    		 contentType : 'application/json',
-    		 success : d =>{
-    			 if (d.msg==='SUCCESS') {
-    				 alert('수정 완료헸습니다');
-    				 $(r_cnt).empty();
-    				 $(compo.cust_login_form())
-                     .appendTo(r_cnt);
-    				 $('form button[type=submit]').click(e=>{ 
-               		  e.preventDefault();
-               		  login();
-               	  });
-				}else{
-					alert('수정실패!!');
-				}
-             },
-             error : e=>{
-                  alert('실패');
-             }
-    	 });
-     };
+    
      
-     let del =()=>{
-    	 
-    	 $.ajax({
-    		 url : _+'/customers/'+data.customerID,
-    		 type : 'DELETE',
-    		 dataType : 'json',
-    		 data : JSON.stringify(data),
-    		 contentType : 'application/json',
-    		 success : d =>{
-    			 if (d.msg==='SUCCESS') {
-    				 alert('회원가입 성공했습니다');
-    				 $(r_cnt).empty();
-    				 $(compo.cust_login_form())
-                     .appendTo(r_cnt);
-    				 $('form button[type=submit]').click(e=>{ 
-               		  e.preventDefault();
-               		  login();
-               	  });
-				}else{
-					alert('회원가입실패!!');
-				}
-             },
-             error : e=>{
-                  alert('실패');
-             }
-    	 });
-     };
      
      let register =()=>{
     	  let data = {
@@ -261,9 +196,6 @@ auth = (()=>{
      				login();
                  }
         	 }); // $.ajax
-    	 
-    	 
-    	 
      };
      let access =()=>{
     	 
@@ -286,7 +218,6 @@ auth = (()=>{
                       		  e.preventDefault();
                       		  login();
                       	  });
-                		 
 					}else{
 						alert('로그인 실패');
 					}

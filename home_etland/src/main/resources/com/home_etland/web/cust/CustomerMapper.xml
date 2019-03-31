@@ -49,7 +49,6 @@
 		  flushCache="true"
 		  statementType="PREPARED"
 		  timeout="20">
-		  
 		  UPDATE CUSTOMERS SET PASSWORD = #{password},
 		  					   PHONE = #{phone},
 		  					   CITY = #{city},

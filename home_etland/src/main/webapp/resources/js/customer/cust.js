@@ -17,6 +17,7 @@ let _,js,compojs,r_cnt,l_cnt;
 	};
 	let setContentView=()=>{
 		$.getScript(compojs);
+		$.getScript(js+'/common/auth.js');
 		$.getScript(js+'/prod/prod.js');
 		mypage();
 	};
@@ -47,12 +48,19 @@ let _,js,compojs,r_cnt,l_cnt;
                       break;
                   case 'update':
               		  $(r_cnt).html(compo.cust_update());
+              		 $('form button[type=submit]').click(e=>{ 
+                  		  e.preventDefault();
+                  		  update();
+                  	  });
                        break;
                   case 'del':
-                	  
-                       break;
+                	  $(r_cnt).html(compo.cust_delete());
+                	  $('div button[type=submit]').click(e=>{ 
+                  		  e.preventDefault();
+                  		  del();
+                  	  });
+                	  break;
                   case 'shop':
-                	  alert('shop : 클릭함');
                 	  prod.init();
                        break;
                   case 'history':
@@ -67,6 +75,74 @@ let _,js,compojs,r_cnt,l_cnt;
 		$('ul li[name=mypage]').addClass('active');
 		
 	};
+	 let update =()=>{
+    	 let data = {
+    			 customerID : $('form input[name=cid]').val(),
+    			 customerName : $('form input[name=cname]').val(),
+    			 password : $('form input[name=cpass]').val(),
+    			 ssn : $('form input[name=cssn]').val(),
+    			 phone : $('form input[name=cphone]').val(),
+    			 city : $('form input[name=ccity]').val(),
+    			 address : $('form input[name=cadr]').val(),
+    			 postalCode : $('form input[name=cptc]').val()
+    	 }; 
+    	 $.ajax({
+    		 url : _+'/customers/'+data.customerID,
+    		 type : 'put',
+    		 dataType : 'json',
+    		 data : JSON.stringify(data),
+    		 contentType : 'application/json',
+    		 success : d =>{
+    			 if (d.msg==='SUCCESS') {
+    				 alert('수정 완료헸습니다');
+    				 $(r_cnt).empty();
+    				 $(compo.cust_login_form())
+                     .appendTo(r_cnt);
+    				 $('form button[type=submit]').click(e=>{ 
+               		  e.preventDefault();
+               		  	login();
+               	  });
+				}else{
+					alert('수정실패!!');
+				}
+             },
+             error : e=>{
+                  alert('실패');
+             }
+    	 });
+     };
+     
+
+     let del =()=>{
+    	 let data = {
+    			 customerID : $('form input[name=customerID]').val(),
+    			 password : $('form input[name=password]').val()
+    	 }; 
+    	 $.ajax({
+    		 url : _+'/customers/'+data.customerID,
+    		 type : 'DELETE',
+    		 dataType : 'json',
+    		 data : JSON.stringify(data),
+    		 contentType : 'application/json',
+    		 success : d =>{
+    			 if (d.msg==='SUCCESS') {
+    				 alert('회원탈퇴 성공했습니다');
+    				 $(r_cnt).empty();
+    				 $(compo.cust_login_form())
+                     .appendTo(r_cnt);
+    				 $('div button[type=submit]').click(e=>{ 
+               		  e.preventDefault();
+               		  login();
+               	  });
+				}else{
+					alert('회원가입실패!!');
+				}
+             },
+             error : e=>{
+                  alert('실패');
+             }
+    	 });
+     };
 	return {init:init}
 })();
 	
